@@ -5,15 +5,20 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 public class SettingsManager {
     private final Map<String, Boolean> settings = new HashMap<>();
 
     public SettingsManager(FileConfiguration config) {
-        if (config.getConfigurationSection("settings") == null) return;
-        if (config.getConfigurationSection("settings").getKeys(true).isEmpty()) return;
+        Set<String> keys = Objects.requireNonNull(config.getConfigurationSection("settings")).getKeys(true);
 
-        for (String key : config.getConfigurationSection("settings").getKeys(true)) {
+        if (keys.isEmpty()) {
+            return;
+        }
+
+        for (String key : keys) {
             settings.put(key, config.getBoolean("settings." + key));
         }
     }
