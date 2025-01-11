@@ -1,0 +1,5 @@
+name: Challenges
+version: 0.0.1
+main: de.danzel34.challenges.Challenges
+authors: [danzel_34]
+api-version: 1.21.3

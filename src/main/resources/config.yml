@@ -1,0 +1,7 @@
+timer:
+  running: false
+  time: 0
+settings:
+  move-without-started: false
+challenges:
+  test: false
