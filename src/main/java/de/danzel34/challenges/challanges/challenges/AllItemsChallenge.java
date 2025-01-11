@@ -17,8 +17,8 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class AllItemsChallenge extends Challenge {
-    @Getter
     private final List<Material> itemsCollected = new ArrayList<>(); //todo saving works but loading not
 
     public AllItemsChallenge() {
@@ -53,9 +53,7 @@ public class AllItemsChallenge extends Challenge {
     }
 
     private void checkWin(@Nullable Material material) {
-        if (material == null) {
-            return;
-        } else {
+        if (material != null) {
             if (!itemsCollected.contains(material)) {
                 itemsCollected.add(material);
                 Bukkit.broadcast(Component.text("You collected " + material.name() + "!"));

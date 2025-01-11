@@ -14,9 +14,9 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+@Getter
 public abstract class Challenge {
-    @Getter
-    private String name;
+    private final String name;
 
     public Challenge(String name) {
         this.name = name;

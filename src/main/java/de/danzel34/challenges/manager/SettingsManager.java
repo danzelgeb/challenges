@@ -1,6 +1,5 @@
 package de.danzel34.challenges.manager;
 
-import lombok.SneakyThrows;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.HashMap;

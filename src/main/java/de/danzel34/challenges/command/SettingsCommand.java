@@ -7,6 +7,7 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Optional;
 import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
 import de.danzel34.challenges.Challenges;
 import de.danzel34.challenges.challanges.Challenge;
 import de.danzel34.challenges.menu.SettingsMenu;
@@ -26,6 +27,7 @@ public class SettingsCommand extends BaseCommand {
 
     @Subcommand("setting")
     @CommandCompletion("@settings true|false")
+    @Syntax("<setting> [true|false]")
     public void changeSetting(CommandSender sender, String setting, @Optional String value) {
         if (!Challenges.getInstance().getSettingsManager().getSettings().contains(setting)) {
             sender.sendMessage(Component.text("The setting you want to change was not found!").color(NamedTextColor.RED));
@@ -43,6 +45,7 @@ public class SettingsCommand extends BaseCommand {
 
     @Subcommand("challenges")
     @CommandCompletion("@challenges true|false")
+    @Syntax("<challenge> [true|false]")
     public void listChallenges(CommandSender sender, @Optional String challengeName, @Optional String value) {
         if (challengeName == null) {
 

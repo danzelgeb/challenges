@@ -25,10 +25,6 @@ public class ChallengesManager {
         }
     }
 
-    public void registerChallenge(Challenge challenge) {
-        challenges.put(challenge, false);
-    }
-
     public List<Challenge> getActiveChallenges() {
         return challenges.entrySet().stream()
                 .filter(Map.Entry::getValue)

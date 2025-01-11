@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
 import de.danzel34.challenges.Challenges;
 import de.danzel34.challenges.challanges.challenges.AllItemsChallenge;
 import de.danzel34.challenges.manager.ChallengesManager;
@@ -15,6 +16,7 @@ public class ChallengeSpecificCommands extends BaseCommand {
 
     @Subcommand("skipitem")
     @CommandCompletion("@materials")
+    @Syntax("<materials>")
     public void skipItem(CommandSender sender, String material) {
         ChallengesManager challengesManager = Challenges.getInstance().getChallengesManager();
         if (!challengesManager.isActive(challengesManager.getChallange("AllItems"))) {
@@ -38,5 +40,12 @@ public class ChallengeSpecificCommands extends BaseCommand {
         for (Material material : challengesManager.getChallange("AllItems", AllItemsChallenge.class).getItemsCollected()) {
             sender.sendMessage("§7- " + material.name());
         }
+    }
+
+    @Subcommand("getgoal")
+    @Syntax("<name>")
+    public void getGoal(CommandSender sender, String name) {
+        ChallengesManager challengesManager = Challenges.getInstance().getChallengesManager();
+        sender.sendMessage("§aGoal: " + challengesManager.getChallange(name).challengeGoal().name());
     }
 }
