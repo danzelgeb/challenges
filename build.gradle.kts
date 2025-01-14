@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.3-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
     implementation("org.projectlombok:lombok:1.18.30")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     annotationProcessor("org.projectlombok:lombok:1.18.30")

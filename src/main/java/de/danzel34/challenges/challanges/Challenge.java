@@ -5,6 +5,7 @@ import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -23,6 +24,8 @@ public abstract class Challenge {
     }
 
     public abstract Goal challengeGoal();
+
+    public abstract Material getMaterial();
 
     public void onMove(PlayerMoveEvent event) {}
 

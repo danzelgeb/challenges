@@ -2,6 +2,7 @@ package de.danzel34.challenges.challanges.challenges;
 
 import de.danzel34.challenges.challanges.Challenge;
 import de.danzel34.challenges.challanges.Goal;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.entity.EntityDeathEvent;
 
@@ -14,6 +15,11 @@ public class KillWitherChallenge extends Challenge {
     @Override
     public Goal challengeGoal() {
         return Goal.KILL_WITHER;
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.WITHER_SKELETON_SKULL;
     }
 
     @Override

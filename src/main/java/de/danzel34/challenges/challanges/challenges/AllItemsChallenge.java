@@ -31,6 +31,11 @@ public class AllItemsChallenge extends Challenge {
     }
 
     @Override
+    public Material getMaterial() {
+        return Material.COMMAND_BLOCK;
+    }
+
+    @Override
     public void onPickUp(EntityPickupItemEvent event) {
         checkWin(event.getItem().getItemStack().getType());
     }

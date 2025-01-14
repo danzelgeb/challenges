@@ -17,6 +17,11 @@ public class NoCraftingTableChallenge extends Challenge {
     }
 
     @Override
+    public Material getMaterial() {
+        return Material.CRAFTING_TABLE;
+    }
+
+    @Override
     public void onCraft(CraftItemEvent event) {
         if (event.getRecipe().getResult().getType() == Material.CRAFTING_TABLE) {
             event.setCancelled(true);
