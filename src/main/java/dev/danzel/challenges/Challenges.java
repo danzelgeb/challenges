@@ -6,10 +6,7 @@ import dev.danzel.challenges.challanges.challenges.AllItemsChallenge;
 import dev.danzel.challenges.challanges.challenges.KillEnderDragonChallenge;
 import dev.danzel.challenges.challanges.challenges.KillWitherChallenge;
 import dev.danzel.challenges.challanges.challenges.NoCraftingTableChallenge;
-import dev.danzel.challenges.command.ChallengeSpecificCommands;
-import dev.danzel.challenges.command.SettingsCommand;
-import dev.danzel.challenges.command.StartCommand;
-import dev.danzel.challenges.command.TimerCommand;
+import dev.danzel.challenges.command.*;
 import dev.danzel.challenges.listener.CraftItemListener;
 import dev.danzel.challenges.listener.EntityDamageByEntityListener;
 import dev.danzel.challenges.listener.EntityDamageListener;
@@ -23,6 +20,9 @@ import dev.danzel.challenges.listener.PlayerQuitListener;
 import dev.danzel.challenges.manager.ChallengesManager;
 import dev.danzel.challenges.manager.SettingsManager;
 import dev.danzel.challenges.manager.TimerManager;
+import dev.danzel.challenges.menu.ChallengeAllItemsCollectedMenu;
+import dev.danzel.challenges.menu.SettingsChallengeMenu;
+import dev.danzel.challenges.menu.SettingsGeneralMenu;
 import dev.danzel.challenges.menu.SettingsMenu;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -52,6 +52,7 @@ public class Challenges extends JavaPlugin {
     @Override
     public void onEnable() {
         commandManager = new PaperCommandManager(this);
+
         registerListener(new CraftItemListener());
         registerListener(new EntityDamageByEntityListener());
         registerListener(new EntityDamageListener());
@@ -62,20 +63,36 @@ public class Challenges extends JavaPlugin {
         registerListener(new PlayerJoinListener());
         registerListener(new PlayerMoveListener());
         registerListener(new PlayerQuitListener());
+
         registerListener(new SettingsMenu());
+        registerListener(new SettingsGeneralMenu());
+        registerListener(new SettingsChallengeMenu());
+        registerListener(new ChallengeAllItemsCollectedMenu());
+
         loadTimer();
+
         challengesManager = new ChallengesManager(registerChallenges(), getConfig());
+
         loadChallengeStatus();
-        commandManager.registerCommand(new TimerCommand());
-        settingsManager = new SettingsManager(getConfig());
-        SettingsMenu.register();
-        commandManager.getCommandCompletions().registerAsyncCompletion("settings", context ->
-                settingsManager.getSettings());
-        commandManager.getCommandCompletions().registerAsyncCompletion("challenges", context ->
-                challengesManager.challenges().stream().collect(ArrayList::new, (list, challenge) -> list.add(challenge.getName()), List::addAll));
+
+        commandManager.registerCommand(new ChallengeSpecificCommands());
         commandManager.registerCommand(new SettingsCommand());
         commandManager.registerCommand(new StartCommand());
-        commandManager.registerCommand(new ChallengeSpecificCommands());
+        commandManager.registerCommand(new TestCommand());
+        commandManager.registerCommand(new TimerCommand());
+
+        settingsManager = new SettingsManager(getConfig());
+
+        ChallengeAllItemsCollectedMenu.register();
+        SettingsMenu.register();
+
+
+        commandManager.getCommandCompletions().registerAsyncCompletion("settings", context ->
+                settingsManager.getSettings());
+
+        commandManager.getCommandCompletions().registerAsyncCompletion("challenges", context ->
+                challengesManager.challenges().stream().collect(ArrayList::new, (list, challenge) -> list.add(challenge.getName()), List::addAll));
+
         commandManager.getCommandCompletions().registerAsyncCompletion("materials", context ->
                 Stream.of(Material.values()).collect(ArrayList::new, (list, material) -> list.add(material.name()), List::addAll));
     }
