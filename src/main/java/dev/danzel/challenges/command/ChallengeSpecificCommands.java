@@ -36,6 +36,7 @@ public class ChallengeSpecificCommands extends BaseCommand {
             return;
         }
 
+        //todo change to gui
         sender.sendMessage("§aCollected items: ");
         for (Material material : challengesManager.getChallange("AllItems", AllItemsChallenge.class).getItemsCollected()) {
             sender.sendMessage("§7- " + material.name());
