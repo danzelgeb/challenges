@@ -1,5 +1,6 @@
 package dev.danzel.challenges.menu;
 
+import dev.danzel.challenges.utils.Items;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -20,13 +21,8 @@ public class SettingsMenu implements Listener {
         inventory = Bukkit.createInventory(null, 27,
                 Component.text("Settings").color(NamedTextColor.BLUE).decoration(TextDecoration.BOLD, true));
 
-        ItemStack placeholder = ItemStack.of(Material.BLUE_STAINED_GLASS_PANE);
-        ItemMeta placeholderMeta = placeholder.getItemMeta();
-        placeholderMeta.displayName(Component.empty());
-        placeholder.setItemMeta(placeholderMeta);
-
         for (int i = 0; i < 27; i++) {
-            inventory.setItem(i, placeholder);
+            inventory.setItem(i, Items.placeholder());
         }
 
         ItemStack challenges = ItemStack.of(Material.WATER_BUCKET);
