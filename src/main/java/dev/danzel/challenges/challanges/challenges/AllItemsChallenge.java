@@ -3,6 +3,7 @@ package dev.danzel.challenges.challanges.challenges;
 import dev.danzel.challenges.Challenges;
 import dev.danzel.challenges.challanges.Challenge;
 import dev.danzel.challenges.challanges.Goal;
+import dev.danzel.challenges.menu.ChallengeAllItemsCollectedMenu;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -17,8 +18,8 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 public class AllItemsChallenge extends Challenge {
+    @Getter
     private final List<Material> itemsCollected = new ArrayList<>(); //todo saving works but loading not
 
     public AllItemsChallenge() {
@@ -61,6 +62,7 @@ public class AllItemsChallenge extends Challenge {
         if (material != null) {
             if (!itemsCollected.contains(material)) {
                 itemsCollected.add(material);
+                ChallengeAllItemsCollectedMenu.update();
                 Bukkit.broadcast(Component.text("You collected " + material.name() + "!"));
             }
             if (itemsCollected.size() == Material.values().length) {
