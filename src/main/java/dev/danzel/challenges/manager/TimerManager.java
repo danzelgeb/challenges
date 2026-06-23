@@ -1,6 +1,7 @@
 package dev.danzel.challenges.manager;
 
 import dev.danzel.challenges.Challenges;
+import dev.danzel.challenges.utils.Txt;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -14,7 +15,8 @@ public class TimerManager {
     private int time;
     @Getter
     private boolean running;
-    private BukkitRunnable runnable;
+    private BukkitRunnable timerRunnable;
+    private BukkitRunnable actionBarRunnable;
 
     public TimerManager() {
         this.time = 0;
@@ -27,7 +29,8 @@ public class TimerManager {
     public void start() {
         if (running) return;
         this.running = true;
-        runnable = new BukkitRunnable() {
+        if (actionBarRunnable != null) actionBarRunnable.cancel();
+        timerRunnable = new BukkitRunnable() {
             @Override
             public void run() {
                 time++;
@@ -36,14 +39,31 @@ public class TimerManager {
                 }
             }
         };
-        runnable.runTaskTimerAsynchronously(Challenges.getInstance(), 0, 20);
+        timerRunnable.runTaskTimerAsynchronously(Challenges.getInstance(), 0, 20);
     }
 
     public void stop() {
         if (!running) return;
         this.running = false;
-        if (runnable != null)
-            runnable.cancel();
+        if (timerRunnable != null)
+            timerRunnable.cancel();
+
+        actionBarRunnable = new BukkitRunnable() {
+            @Override
+            public void run() {
+                time++;
+                for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                    onlinePlayer.sendActionBar(Txt.text("Timer is paused!"));
+                }
+            }
+        };
+        actionBarRunnable.runTaskTimerAsynchronously(Challenges.getInstance(), 0, 20);
+    }
+
+    public void reset() {
+        stop();
+        this.time = 0;
+        actionBarRunnable.cancel();
     }
 
     private Component currentTime() {

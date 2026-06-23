@@ -24,14 +24,25 @@ public class TimerCommand extends BaseCommand {
         sender.sendMessage(Component.text("The timer is now running.").color(NamedTextColor.GREEN));
      }
 
+     @Subcommand("pause")
+     public void pauseTimer(CommandSender sender) {
+         if (!Challenges.getInstance().getTimerManager().isRunning()) {
+             sender.sendMessage(Component.text("The timer is already paused or stopped!").color(NamedTextColor.RED));
+             return;
+         }
+
+         Challenges.getInstance().getTimerManager().stop();
+         sender.sendMessage(Component.text("The timer is now paused.").color(NamedTextColor.GREEN));
+     }
+
     @Subcommand("stop")
     public void stopTimer(CommandSender sender) {
-        if (!Challenges.getInstance().getTimerManager().isRunning()) {
-            sender.sendMessage(Component.text("The timer is already stopped!").color(NamedTextColor.RED));
+        if (Challenges.getInstance().getTimerManager().getTime() <= 0) {
+            sender.sendMessage(Component.text("The timer is already stopped and at the default!").color(NamedTextColor.RED));
             return;
         }
 
-        Challenges.getInstance().getTimerManager().stop();
+        Challenges.getInstance().getTimerManager().reset();
         sender.sendMessage(Component.text("The timer is now stopped.").color(NamedTextColor.GREEN));
     }
 
