@@ -5,7 +5,7 @@ plugins {
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.12"
 }
 
-group = "de.danzel34"
+group = "dev.danzel"
 version = project.version
 
 repositories {
@@ -39,5 +39,9 @@ tasks.assemble {
 tasks {
     runServer {
         minecraftVersion("1.21.4")
+        downloadPlugins {
+            modrinth("Vebnzrzj", "v5.5.53-bukkit") // LuckPerms
+            modrinth("P1OZGk5p", "5.10.1-SNAPSHOT+1012") // ViaVersion
+        }
     }
 }
